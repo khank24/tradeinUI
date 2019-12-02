@@ -1,6 +1,28 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Header from './common/Header'
+import Footer from './common/Footer'
+import MainScreen from './MainScreen'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: '#20063C',
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: '#0066ff',
+      main: '#0044ff',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#ffcc00',
+    },
+    // error: will use the default color
+  },
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,25 +51,22 @@ const useStyles = makeStyles(theme => ({
 export default function Main() {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Grid container >
-        <Grid item xs={12}>
-        <div className={classes.header}>
-          <div className={classes.logo}>Logo</div>
-        </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <Grid container >
+          <Grid item xs={12}>
+          <Header />
+          </Grid>
+          <Grid item xs={12}>
+          <MainScreen />
+          </Grid>
+          <Grid item xs={12}>
+            <Footer />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-        <div className={classes.container}>
-          <div>Container</div>
-        </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div className={classes.footer}>
-            <div>Footer</div>
-          </div>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </ThemeProvider>
+    
   );
 }
 
