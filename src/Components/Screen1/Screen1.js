@@ -10,7 +10,247 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
+import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator'
+import MenuItem from '@material-ui/core/MenuItem';
+
+const USAstates = [
+    {
+        "name": "Alabama",
+        "abbreviation": "AL"
+    },
+    {
+        "name": "Alaska",
+        "abbreviation": "AK"
+    },
+    {
+        "name": "American Samoa",
+        "abbreviation": "AS"
+    },
+    {
+        "name": "Arizona",
+        "abbreviation": "AZ"
+    },
+    {
+        "name": "Arkansas",
+        "abbreviation": "AR"
+    },
+    {
+        "name": "California",
+        "abbreviation": "CA"
+    },
+    {
+        "name": "Colorado",
+        "abbreviation": "CO"
+    },
+    {
+        "name": "Connecticut",
+        "abbreviation": "CT"
+    },
+    {
+        "name": "Delaware",
+        "abbreviation": "DE"
+    },
+    {
+        "name": "District Of Columbia",
+        "abbreviation": "DC"
+    },
+    {
+        "name": "Federated States Of Micronesia",
+        "abbreviation": "FM"
+    },
+    {
+        "name": "Florida",
+        "abbreviation": "FL"
+    },
+    {
+        "name": "Georgia",
+        "abbreviation": "GA"
+    },
+    {
+        "name": "Guam",
+        "abbreviation": "GU"
+    },
+    {
+        "name": "Hawaii",
+        "abbreviation": "HI"
+    },
+    {
+        "name": "Idaho",
+        "abbreviation": "ID"
+    },
+    {
+        "name": "Illinois",
+        "abbreviation": "IL"
+    },
+    {
+        "name": "Indiana",
+        "abbreviation": "IN"
+    },
+    {
+        "name": "Iowa",
+        "abbreviation": "IA"
+    },
+    {
+        "name": "Kansas",
+        "abbreviation": "KS"
+    },
+    {
+        "name": "Kentucky",
+        "abbreviation": "KY"
+    },
+    {
+        "name": "Louisiana",
+        "abbreviation": "LA"
+    },
+    {
+        "name": "Maine",
+        "abbreviation": "ME"
+    },
+    {
+        "name": "Marshall Islands",
+        "abbreviation": "MH"
+    },
+    {
+        "name": "Maryland",
+        "abbreviation": "MD"
+    },
+    {
+        "name": "Massachusetts",
+        "abbreviation": "MA"
+    },
+    {
+        "name": "Michigan",
+        "abbreviation": "MI"
+    },
+    {
+        "name": "Minnesota",
+        "abbreviation": "MN"
+    },
+    {
+        "name": "Mississippi",
+        "abbreviation": "MS"
+    },
+    {
+        "name": "Missouri",
+        "abbreviation": "MO"
+    },
+    {
+        "name": "Montana",
+        "abbreviation": "MT"
+    },
+    {
+        "name": "Nebraska",
+        "abbreviation": "NE"
+    },
+    {
+        "name": "Nevada",
+        "abbreviation": "NV"
+    },
+    {
+        "name": "New Hampshire",
+        "abbreviation": "NH"
+    },
+    {
+        "name": "New Jersey",
+        "abbreviation": "NJ"
+    },
+    {
+        "name": "New Mexico",
+        "abbreviation": "NM"
+    },
+    {
+        "name": "New York",
+        "abbreviation": "NY"
+    },
+    {
+        "name": "North Carolina",
+        "abbreviation": "NC"
+    },
+    {
+        "name": "North Dakota",
+        "abbreviation": "ND"
+    },
+    {
+        "name": "Northern Mariana Islands",
+        "abbreviation": "MP"
+    },
+    {
+        "name": "Ohio",
+        "abbreviation": "OH"
+    },
+    {
+        "name": "Oklahoma",
+        "abbreviation": "OK"
+    },
+    {
+        "name": "Oregon",
+        "abbreviation": "OR"
+    },
+    {
+        "name": "Palau",
+        "abbreviation": "PW"
+    },
+    {
+        "name": "Pennsylvania",
+        "abbreviation": "PA"
+    },
+    {
+        "name": "Puerto Rico",
+        "abbreviation": "PR"
+    },
+    {
+        "name": "Rhode Island",
+        "abbreviation": "RI"
+    },
+    {
+        "name": "South Carolina",
+        "abbreviation": "SC"
+    },
+    {
+        "name": "South Dakota",
+        "abbreviation": "SD"
+    },
+    {
+        "name": "Tennessee",
+        "abbreviation": "TN"
+    },
+    {
+        "name": "Texas",
+        "abbreviation": "TX"
+    },
+    {
+        "name": "Utah",
+        "abbreviation": "UT"
+    },
+    {
+        "name": "Vermont",
+        "abbreviation": "VT"
+    },
+    {
+        "name": "Virgin Islands",
+        "abbreviation": "VI"
+    },
+    {
+        "name": "Virginia",
+        "abbreviation": "VA"
+    },
+    {
+        "name": "Washington",
+        "abbreviation": "WA"
+    },
+    {
+        "name": "West Virginia",
+        "abbreviation": "WV"
+    },
+    {
+        "name": "Wisconsin",
+        "abbreviation": "WI"
+    },
+    {
+        "name": "Wyoming",
+        "abbreviation": "WY"
+    }
+]
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,26 +284,8 @@ function TabPanel(props) {
 
 class Screen1 extends React.Component {
 
-    state = {
-        value: 'vim',
-        email: '',
-        data: {
-            vim: '',
-        },
-    }
-
-
-    handleChange = (event, value) => {
-        this.setState({value})
-    }
-
-    handleFormChange = (event) => {
-        const email = event.target.value;
-        this.setState({ email });
-    }
     render() {
-        const {classes} = this.props
-        const {value, email} = this.state
+        const {classes, tabDefaultValue, vim, handleChange, handleFormChange, licencePlate, state, handleScreenChange} = this.props
         return (
         <div className={classes.mainContainer}>
             <Typography variant="h4">
@@ -73,8 +295,8 @@ class Screen1 extends React.Component {
                 We can look it up by VIN or License plate number:
             </Typography>
             <Tabs
-                value={value}
-                onChange={this.handleChange}
+                value={tabDefaultValue}
+                onChange={handleChange}
                 indicatorColor="primary"
                 textColor="primary"
                 centered
@@ -87,27 +309,27 @@ class Screen1 extends React.Component {
                 />
                 <Tab value="license" label="License Plate" {...a11yProps('license')} />
             </Tabs>
-            <TabPanel value={value} index="vim">
+            <TabPanel value={tabDefaultValue} index="vim">
                 <div className={classes.vim}>
                     Vehicle Identification Number [VIM]:
                     <Tooltip title="VIM details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip>
                     <ValidatorForm
                         ref="form"
-                        //onSubmit={this.handleSubmit}
+                        onSubmit={() => handleScreenChange('screen2')}
                         onError={errors => console.log(errors)}
                     >
                         <TextValidator
                             variant="outlined" className={classes.inputField}
-                            onChange={this.handleFormChange}
-                            name="email"
-                            value={email}
+                            onChange={handleFormChange}
+                            name="vim"
+                            value={vim}
                             validators={['required']}
                             errorMessages={['this field is required']}
                         />
-                        <Button className={classes.button}>
+                        <Button className={classes.button} onClick={() => handleScreenChange('screen0')} >
                             <ArrowLeftIcon /> Back
                         </Button>
-                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>
+                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
                             Next
                         </Button>
                     </ValidatorForm>
@@ -125,8 +347,49 @@ class Screen1 extends React.Component {
                     </Button> */}
                 </div>
             </TabPanel>
-            <TabPanel value={value} index="license">
-                Item Two
+            <TabPanel value={tabDefaultValue} index="license">
+            <div className={classes.vim}>
+                    Licence Plate:
+                    <ValidatorForm
+                        ref="form"
+                        onSubmit={() => handleScreenChange('screen2')}
+                        onError={errors => console.log(errors)}
+                    >
+                        <TextValidator
+                            variant="outlined" className={classes.inputField}
+                            onChange={handleFormChange}
+                            name="licencePlate"
+                            value={licencePlate}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                        />
+                        State:
+                        <SelectValidator
+                            value={state}
+                            onChange={handleFormChange}
+                            variant="outlined"
+                            name='state'
+                            className={classes.inputField}
+                            validators={['required']}
+                            errorMessages={['this field is required']}
+                            >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                USAstates.map(state => {
+                                    return <MenuItem key={state.abbreviation} value={state.abbreviation}>{state.name}</MenuItem>
+                                })
+                            }
+                        </SelectValidator>
+                        <Button className={classes.button} onClick={() => handleScreenChange('screen0')} >
+                            <ArrowLeftIcon /> Back
+                        </Button>
+                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>
+                            Next
+                        </Button>
+                    </ValidatorForm>
+                </div>
             </TabPanel>
           </div>
         )

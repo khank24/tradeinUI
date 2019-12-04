@@ -1,14 +1,59 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Screen1 from './Screen1/Screen1'
+import Screen2 from './Screen2/Screen2'
 
 
 class MainScreen extends React.Component {
+    state = {
+        tabDefaultValue: 'vim',
+        formFields: {
+            vim: '',
+            licencePlate: '',
+            state: '',
+        },
+        presentScreen: 'screen1'
+    }
+
+    handleChange = (event, value) => {
+        this.setState({tabDefaultValue:value})
+    }
+
+    handleFormChange = (event) => {
+        const name = event.target.name;
+        const formFields = this.state.formFields;
+        formFields[name] = event.target.value;
+        this.setState({ formFields });
+    }
+
+    handleScreenChange = (screen) => {
+        this.setState({ presentScreen:screen });
+    }
+
     render() {
         const {classes} = this.props
+        const {tabDefaultValue, formFields, presentScreen} = this.state
         return (
         <div className={classes.mainContainer}>
-            <Screen1 />
+            {
+                presentScreen === 'screen1' && 
+                <Screen1 
+                    tabDefaultValue={tabDefaultValue} 
+                    vim={formFields.vim} 
+                    handleFormChange = {this.handleFormChange} 
+                    handleChange={this.handleChange} 
+                    licencePlate={formFields.licencePlate}
+                    state={formFields.state}
+                    handleScreenChange={this.handleScreenChange}
+                />
+            }
+            {
+                presentScreen === 'screen2' && 
+                <Screen2
+                    handleScreenChange={this.handleScreenChange}
+                />
+            }
+            
           </div>
         )
     }
