@@ -7,8 +7,8 @@ class Header extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.header}>
-            <div className={classes.logo}>TRADE IN</div>
-          </div>
+                <div className={classes.logo}>TRADE IN</div>
+            </div>
         )
     }
 }

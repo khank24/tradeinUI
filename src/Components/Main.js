@@ -55,10 +55,10 @@ export default function Main() {
       <div className={classes.root}>
         <Grid container >
           <Grid item xs={12}>
-          <Header />
+            <Header />
           </Grid>
           <Grid item xs={12}>
-          <MainScreen />
+            <MainScreen />
           </Grid>
           <Grid item xs={12}>
             <Footer />

@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Screen1 from './Screen1/Screen1'
 import Screen2 from './Screen2/Screen2'
+import axios from 'axios'
 
 
 class MainScreen extends React.Component {
@@ -27,7 +28,14 @@ class MainScreen extends React.Component {
     }
 
     handleScreenChange = (screen) => {
-        this.setState({ presentScreen:screen });
+        //this.setState({ presentScreen:screen });
+        const { licencePlate, state} = this.state
+        // console.log('test')
+        // axios.get(`https://jsonplaceholder.typicode.com/users`)
+        // .then(res => {
+        //     const persons = res.data;
+        //     this.setState({ persons });
+        // })
     }
 
     render() {
