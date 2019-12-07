@@ -284,6 +284,11 @@ function TabPanel(props) {
 
 class Screen1 extends React.Component {
 
+onSubmitFun = (event) => {
+	event.preventDefault();
+	this.props.handleScreenChange('screen2')
+
+}
     render() {
         const {classes, tabDefaultValue, vim, handleChange, handleFormChange, licencePlate, state, handleScreenChange} = this.props
         return (
@@ -352,7 +357,7 @@ class Screen1 extends React.Component {
                     Licence Plate:
                     <ValidatorForm
                         ref="form"
-                        onSubmit={() => handleScreenChange('screen2')}
+                        onSubmit={this.onSubmitFun}
                         onError={errors => console.log(errors)}
                     >
                         <TextValidator
@@ -421,4 +426,3 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(Screen1)
-  

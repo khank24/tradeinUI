@@ -28,14 +28,30 @@ class MainScreen extends React.Component {
     }
 
     handleScreenChange = (screen) => {
-        //this.setState({ presentScreen:screen });
-        const { licencePlate, state} = this.state
-        // console.log('test')
-        // axios.get(`https://jsonplaceholder.typicode.com/users`)
-        // .then(res => {
-        //     const persons = res.data;
-        //     this.setState({ persons });
-        // })
+       const { licencePlate, state} = this.state.formFields
+
+	   const lp = licencePlate
+
+
+        const formData = {
+            'licence-plate': 'ech234',
+            'state': 'MI'
+        }
+      
+        axios.post(`http://localhost:8091/api/v2/quickvin`, {
+  "license-plate": lp,
+  "state": state
+}, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     render() {
@@ -78,4 +94,3 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(MainScreen)
-  
