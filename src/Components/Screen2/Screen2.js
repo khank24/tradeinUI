@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 class Screen2 extends React.Component {
 
     render() {
-        const {classes, handleScreenChange} = this.props
+        const {classes, handleScreenChange, vehicalDetails} = this.props
         return (
             <Card className={classes.card}>
                 <CardActionArea>
@@ -23,12 +23,21 @@ class Screen2 extends React.Component {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                    Lizard
+                    Make: {vehicalDetails.make}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography gutterBottom variant="h5" component="h2">
+                    Model: {vehicalDetails.Model}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                    Year: {vehicalDetails.year}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2">
+                    VIN: {vehicalDetails.vin}
+                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary" component="p">
                     Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
                     across all continents except Antarctica
-                    </Typography>
+                    </Typography> */}
                 </CardContent>
                 </CardActionArea>
                 <CardActions>

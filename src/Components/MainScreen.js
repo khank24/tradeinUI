@@ -13,8 +13,15 @@ class MainScreen extends React.Component {
             licencePlate: '',
             state: '',
         },
-        presentScreen: 'screen1'
+        presentScreen: 'screen1',
+        vehicalDetails: {
+            make: "Ford",
+            Model: "Mustang",
+            year: '2019',
+            vin: '3GNFK16T83G209781',
+        }
     }
+
 
     handleChange = (event, value) => {
         this.setState({tabDefaultValue:value})
@@ -48,6 +55,17 @@ class MainScreen extends React.Component {
         })
         .then(res => {
             console.log(res.data)
+            const { vehicalDetails } = this.state
+            vehicalDetails.make= res.data.quickvin['vin-info'].decode.make
+            vehicalDetails.Model= res.data.quickvin['vin-info'].decode.model
+            vehicalDetails.year= res.data.quickvin['vin-info'].decode.year
+            vehicalDetails.vin= res.dataquickvin['vin-info'].vin
+
+            this.setState({
+                vehicalDetails,
+                presentScreen: 'screen2'
+
+            })
         })
         .catch(error => {
             console.log(error)
@@ -56,7 +74,7 @@ class MainScreen extends React.Component {
 
     render() {
         const {classes} = this.props
-        const {tabDefaultValue, formFields, presentScreen} = this.state
+        const {tabDefaultValue, formFields, presentScreen, vehicalDetails} = this.state
         return (
         <div className={classes.mainContainer}>
             {
@@ -75,6 +93,7 @@ class MainScreen extends React.Component {
                 presentScreen === 'screen2' && 
                 <Screen2
                     handleScreenChange={this.handleScreenChange}
+                    vehicalDetails= {vehicalDetails}
                 />
             }
             
