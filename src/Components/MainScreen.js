@@ -59,7 +59,7 @@ class MainScreen extends React.Component {
             vehicalDetails.make= res.data.quickvin['vin-info'].decode.make
             vehicalDetails.Model= res.data.quickvin['vin-info'].decode.model
             vehicalDetails.year= res.data.quickvin['vin-info'].decode.year
-            vehicalDetails.vin= res.dataquickvin['vin-info'].vin
+            vehicalDetails.vin= res.data.quickvin['vin-info'].vin
 
             this.setState({
                 vehicalDetails,
