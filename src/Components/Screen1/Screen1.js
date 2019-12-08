@@ -9,7 +9,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator'
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -284,13 +284,18 @@ function TabPanel(props) {
 
 class Screen1 extends React.Component {
 
-onSubmitFun = (event) => {
+onSubmitLicence = (event) => {
 	event.preventDefault();
-	this.props.handleScreenChange('screen2')
+	this.props.handleScreenChange('screen2', 'licence')
+
+}
+onSubmitVin = (event) => {
+	event.preventDefault();
+	this.props.handleScreenChange('screen2', 'vin')
 
 }
     render() {
-        const {classes, tabDefaultValue, vim, handleChange, handleFormChange, licencePlate, state, handleScreenChange} = this.props
+        const {classes, tabDefaultValue, vin, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
         return (
         <div className={classes.mainContainer}>
             <Typography variant="h4">
@@ -307,32 +312,32 @@ onSubmitFun = (event) => {
                 centered
             >
                 <Tab
-                    value="vim"
-                    label="VIM"
+                    value="vin"
+                    label="VIN"
                     wrapped
-                    {...a11yProps('vim')}
+                    {...a11yProps('vin')}
                 />
                 <Tab value="license" label="License Plate" {...a11yProps('license')} />
             </Tabs>
-            <TabPanel value={tabDefaultValue} index="vim">
-                <div className={classes.vim}>
-                    Vehicle Identification Number [VIM]:
-                    <Tooltip title="VIM details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip>
+            <TabPanel value={tabDefaultValue} index="vin">
+                <div className={classes.vin}>
+                    Vehicle Identification Number [VIN]:
+                    <Tooltip title="VIN details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip>
                     <ValidatorForm
                         ref="form"
-                        onSubmit={() => handleScreenChange('screen2')}
+                        onSubmit={this.onSubmitVin}
                         onError={errors => console.log(errors)}
                     >
                         <TextValidator
                             variant="outlined" className={classes.inputField}
                             onChange={handleFormChange}
-                            name="vim"
-                            value={vim}
+                            name="vin"
+                            value={vin}
                             validators={['required']}
                             errorMessages={['this field is required']}
                         />
-                        <Button className={classes.button} onClick={() => handleScreenChange('screen0')} >
-                            <ArrowLeftIcon /> Back
+                        <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
+                            <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
                         </Button>
                         <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
                             Next
@@ -353,11 +358,11 @@ onSubmitFun = (event) => {
                 </div>
             </TabPanel>
             <TabPanel value={tabDefaultValue} index="license">
-            <div className={classes.vim}>
+            <div className={classes.vin}>
                     Licence Plate:
                     <ValidatorForm
                         ref="form"
-                        onSubmit={this.onSubmitFun}
+                        onSubmit={this.onSubmitLicence}
                         onError={errors => console.log(errors)}
                     >
                         <TextValidator
@@ -387,8 +392,8 @@ onSubmitFun = (event) => {
                                 })
                             }
                         </SelectValidator>
-                        <Button className={classes.button} onClick={() => handleScreenChange('screen0')} >
-                            <ArrowLeftIcon /> Back
+                        <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
+                            <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
                         </Button>
                         <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>
                             Next
@@ -406,7 +411,7 @@ const styles = theme => ({
         padding: '20px',
         color: theme.palette.text.secondary,
     },
-    vim: {
+    vin: {
         width: '400px',
         textAlign: 'left',
         margin: '0 auto'
@@ -421,7 +426,13 @@ const styles = theme => ({
     },
     next: {
         float: 'right'
-    }
+    },
+    backArrow: {
+        transform: 'rotateY(180deg)',
+        width: '16px',
+        height: '16px',
+        marginRight: '5px'
+      }
     
 })
 

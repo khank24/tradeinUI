@@ -7,7 +7,8 @@ class Header extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.header}>
-                <div className={classes.logo}>TRADE IN</div>
+                <div className={classes.logo}>LOGO</div>
+                <div className={classes.tradeIn}>TRADE IN</div>
             </div>
         )
     }
@@ -17,9 +18,13 @@ const styles = theme => ({
     header: {
         padding: '20px',
         color: theme.palette.text.secondary,
+        height: '20px',
       },
       logo: {
-        textAlign: 'left',
+        float: 'left',
+      },
+      tradeIn: {
+          float: 'right',
       }
 })
 

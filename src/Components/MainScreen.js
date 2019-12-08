@@ -7,9 +7,9 @@ import axios from 'axios'
 
 class MainScreen extends React.Component {
     state = {
-        tabDefaultValue: 'vim',
+        tabDefaultValue: 'vin',
         formFields: {
-            vim: '',
+            vin: '',
             licencePlate: '',
             state: '',
         },
@@ -34,41 +34,67 @@ class MainScreen extends React.Component {
         this.setState({ formFields });
     }
 
-    handleScreenChange = (screen) => {
-       const { licencePlate, state} = this.state.formFields
+    handleScreenChange = (screen, type) => {
+       const { licencePlate, state, vin} = this.state.formFields
 
-	   const lp = licencePlate
-
-
-        const formData = {
-            'licence-plate': 'ech234',
-            'state': 'MI'
-        }
-      
-        axios.post(`http://localhost:8091/api/v2/quickvin`, {
-  "license-plate": lp,
-  "state": state
-}, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(res => {
-            console.log(res.data)
-            const { vehicalDetails } = this.state
-            vehicalDetails.make= res.data.quickvin['vin-info'].decode.make
-            vehicalDetails.Model= res.data.quickvin['vin-info'].decode.model
-            vehicalDetails.year= res.data.quickvin['vin-info'].decode.year
-            vehicalDetails.vin= res.data.quickvin['vin-info'].vin
-
-            this.setState({
-                vehicalDetails,
-                presentScreen: 'screen2'
-
+        if(type === 'vin') {
+            axios.post(`http://localhost:8084/api/v2/chromedata`, {
+                "vin": vin
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
-        })
-        .catch(error => {
-            console.log(error)
+            .then(res => {
+                console.log(res.data)
+                const { vehicalDetails } = this.state
+                vehicalDetails.make= res.data.vinDescription.division
+                vehicalDetails.Model= res.data.vinDescription.modelName
+                vehicalDetails.year= res.data.vinDescription.modelYear
+                vehicalDetails.vin= res.data.vinDescription.vin
+
+                this.setState({
+                    vehicalDetails,
+                    presentScreen: 'screen2'
+
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        } else {
+            axios.post(`http://localhost:8091/api/v2/quickvin`, {
+                "license-plate": licencePlate,
+                "state": state
+                }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+                const { vehicalDetails } = this.state
+                vehicalDetails.make= res.data.quickvin['vin-info'].decode.make
+                vehicalDetails.Model= res.data.quickvin['vin-info'].decode.model
+                vehicalDetails.year= res.data.quickvin['vin-info'].decode.year
+                vehicalDetails.vin= res.data.quickvin['vin-info'].vin
+
+                this.setState({
+                    vehicalDetails,
+                    presentScreen: 'screen2'
+
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        }        
+    }
+
+    handleBackScreenChange = (screen) => {
+        this.setState({
+            presentScreen: screen
+
         })
     }
 
@@ -81,12 +107,13 @@ class MainScreen extends React.Component {
                 presentScreen === 'screen1' && 
                 <Screen1 
                     tabDefaultValue={tabDefaultValue} 
-                    vim={formFields.vim} 
+                    vin={formFields.vin} 
                     handleFormChange = {this.handleFormChange} 
                     handleChange={this.handleChange} 
                     licencePlate={formFields.licencePlate}
                     state={formFields.state}
                     handleScreenChange={this.handleScreenChange}
+                    handleBackScreenChange={this.handleBackScreenChange}
                 />
             }
             {
@@ -94,6 +121,7 @@ class MainScreen extends React.Component {
                 <Screen2
                     handleScreenChange={this.handleScreenChange}
                     vehicalDetails= {vehicalDetails}
+                    handleBackScreenChange={this.handleBackScreenChange}
                 />
             }
             
@@ -104,6 +132,7 @@ class MainScreen extends React.Component {
 
 const styles = theme => ({
     mainContainer: {
+        background: '#f1f1f1',
         padding: '80px',
     minHeight: '300px',
     textAlign: 'center',
