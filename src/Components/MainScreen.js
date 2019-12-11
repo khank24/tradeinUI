@@ -13,7 +13,7 @@ class MainScreen extends React.Component {
             licencePlate: '',
             state: '',
         },
-        presentScreen: 'screen1',
+        presentScreen: 'screen2',
         vehicalDetails: {
             make: "Ford",
             Model: "Mustang",
@@ -134,7 +134,11 @@ const styles = theme => ({
     mainContainer: {
         background: '#f1f1f1',
         padding: '80px',
-    minHeight: '300px',
+        minHeight: '300px',
+        [theme.breakpoints.down('sm')]: { 
+            padding: '20px'
+          },
+    
     textAlign: 'center',
     color: theme.palette.text.secondary,
       },

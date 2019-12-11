@@ -115,7 +115,29 @@ const styles = theme => ({
         width: '16px',
         height: '16px',
         marginRight: '5px'
-      }
+      },
+      mainHeading: {
+        //fontFamily
+          fontSize: '50px',
+          lineHeight: '1.4',
+          [theme.breakpoints.down('sm')]: { 
+            fontSize: '30px',
+            lineHeight: '1.2',
+          },
+          fontWeight: '200',
+          letterSpacing: '2px',
+          
+          color: '#4d4d4d',
+      },
+      next: {
+        width: '133px',
+        height: '40px',
+        margin: '15px 0 20px',
+        objectFit: 'contain',
+        borderRadius: '20px',
+        boxShadow: '0 10px 10px 0 rgba(0, 0, 0, 0.1), 0 20px 20px 0 rgba(0, 0, 0, 0.1)',
+      //  backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, #102b4e, #102b4e)',
+    },
 })
 
 export default withStyles(styles)(Screen2)

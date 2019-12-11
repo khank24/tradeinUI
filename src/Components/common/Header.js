@@ -21,10 +21,20 @@ const styles = theme => ({
         height: '20px',
       },
       logo: {
-        float: 'left',
+        [theme.breakpoints.down('sm')]: { 
+            margin: '0 auto',
+            textAlign: 'center',
+          },
+          [theme.breakpoints.up('sm')]: { 
+            float: 'left',
+          },
+        
       },
       tradeIn: {
           float: 'right',
+          [theme.breakpoints.down('sm')]: { 
+            display: 'none',
+          },
       }
 })
 

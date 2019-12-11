@@ -254,7 +254,7 @@ const USAstates = [
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <Typography
         component="div"
@@ -268,13 +268,13 @@ function TabPanel(props) {
       </Typography>
     );
   }
-  
+
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
   };
-  
+
   function a11yProps(index) {
     return {
       id: `wrapped-tab-${index}`,
@@ -298,7 +298,7 @@ onSubmitVin = (event) => {
         const {classes, tabDefaultValue, vin, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
         return (
         <div className={classes.mainContainer}>
-            <Typography variant="h4">
+            <Typography variant="h4" className={classes.mainHeading}>
                 LET'S MEET YOUR VEHICLE
             </Typography>
             <Typography variant="caption">
@@ -322,7 +322,8 @@ onSubmitVin = (event) => {
             <TabPanel value={tabDefaultValue} index="vin">
                 <div className={classes.vin}>
                     Vehicle Identification Number [VIN]:
-                    <Tooltip title="VIN details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip>
+                    {/* <Tooltip title="VIN details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip> */}
+
                     <ValidatorForm
                         ref="form"
                         onSubmit={this.onSubmitVin}
@@ -343,8 +344,8 @@ onSubmitVin = (event) => {
                             Next
                         </Button>
                     </ValidatorForm>
-                    {/* <TextField 
-                    id="vim" variant="outlined" className={classes.inputField} 
+                    {/* <TextField
+                    id="vim" variant="outlined" className={classes.inputField}
                     required
                         name="vim"
                         onChange={this.handleFormChange}
@@ -395,7 +396,7 @@ onSubmitVin = (event) => {
                         <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
                             <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
                         </Button>
-                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>
+                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>  
                             Next
                         </Button>
                     </ValidatorForm>
@@ -409,10 +410,16 @@ onSubmitVin = (event) => {
 const styles = theme => ({
     mainContainer: {
         padding: '20px',
+        [theme.breakpoints.down('sm')]: { 
+            padding: '0',
+          },
         color: theme.palette.text.secondary,
     },
     vin: {
         width: '400px',
+        [theme.breakpoints.down('sm')]: { 
+            width: '100%',
+          },
         textAlign: 'left',
         margin: '0 auto'
     },
@@ -425,15 +432,35 @@ const styles = theme => ({
         margin: '15px 0'
     },
     next: {
-        float: 'right'
+        float: 'right',
+        width: '133px',
+        height: '40px',
+        objectFit: 'contain',
+        borderRadius: '20px',
+        boxShadow: '0 10px 10px 0 rgba(0, 0, 0, 0.1), 0 20px 20px 0 rgba(0, 0, 0, 0.1)',
+      //  backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, #102b4e, #102b4e)',
     },
     backArrow: {
         transform: 'rotateY(180deg)',
         width: '16px',
         height: '16px',
         marginRight: '5px'
+      },
+      mainHeading: {
+        //fontFamily
+          fontSize: '50px',
+          lineHeight: '1.4',
+          [theme.breakpoints.down('sm')]: { 
+            fontSize: '30px',
+            lineHeight: '1.2',
+          },
+          fontWeight: '200',
+          letterSpacing: '2px',
+          
+          color: '#4d4d4d',
       }
     
 })
 
 export default withStyles(styles)(Screen1)
+
