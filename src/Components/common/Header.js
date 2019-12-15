@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import  Link from '@material-ui/core/Link';
 
 
 class Header extends React.Component {
@@ -7,7 +8,11 @@ class Header extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.header}>
-                <div className={classes.logo}>LOGO</div>
+                <div className={classes.logo}>
+                 <Link href="http://www.ford.com/" target="_blank"  variant="body2"> 
+                                <img src="https://www.quickquote.ford.com/cc/static/spc/img/ford-logo.png"  title="ford"  alt="ford"/>
+                            </Link>
+                </div>
                 <div className={classes.tradeIn}>TRADE IN</div>
             </div>
         )

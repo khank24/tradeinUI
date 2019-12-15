@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator'
 import MenuItem from '@material-ui/core/MenuItem';
+import Divider from '@material-ui/core/Divider';
 
 const USAstates = [
     {
@@ -297,12 +298,13 @@ onSubmitVin = (event) => {
     render() {
         const {classes, tabDefaultValue, vin, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
         return (
-        <div className={classes.mainContainer}>
+        <div>
+            <div className={classes.mainContainerTop}>
             <Typography variant="h4" className={classes.mainHeading}>
-                LET'S MEET YOUR VEHICLE
+                What Vehicle Will You Trade In?
             </Typography>
-            <Typography variant="caption">
-                We can look it up by VIN or License plate number:
+            <Typography variant="caption" className={classes.subHeading}>
+                Provide your VIN (Vehicle Identification Number) or license plate number.
             </Typography>
             <Tabs
                 value={tabDefaultValue}
@@ -319,10 +321,12 @@ onSubmitVin = (event) => {
                 />
                 <Tab value="license" label="License Plate" {...a11yProps('license')} />
             </Tabs>
+            </div>
+            <Divider />
+            <div className={classes.mainContainerBottom}>
             <TabPanel value={tabDefaultValue} index="vin">
                 <div className={classes.vin}>
                     Vehicle Identification Number [VIN]:
-                    {/* <Tooltip title="VIN details"><InfoIcon fontSize="small" className={classes.info} /></Tooltip> */}
 
                     <ValidatorForm
                         ref="form"
@@ -337,12 +341,26 @@ onSubmitVin = (event) => {
                             validators={['required']}
                             errorMessages={['this field is required']}
                         />
-                        <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
-                            <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
-                        </Button>
-                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
-                            Next
-                        </Button>
+                        <Tooltip title="VIN details">
+                            <Typography variant="body1" className={classes.vehicalLink}>
+                                What is VIN?
+                            </Typography>
+                        </Tooltip>
+                        <div className={classes.navButton}>
+                            
+                            <div className={classes.navButtonLeft}>
+                                <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
+                                    <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
+                                </Button>
+                            </div>
+                            <div className={classes.navButtonRight}>
+                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
+                                    Next
+                                </Button>
+                            </div>
+                        </div>
+                        
+                        
                     </ValidatorForm>
                     {/* <TextField
                     id="vim" variant="outlined" className={classes.inputField}
@@ -393,25 +411,43 @@ onSubmitVin = (event) => {
                                 })
                             }
                         </SelectValidator>
-                        <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
-                            <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
-                        </Button>
-                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>  
-                            Next
-                        </Button>
+                        <div className={classes.navButton}>
+                            
+                            <div className={classes.navButtonLeft}>
+                                <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
+                                    <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
+                                </Button>
+                            </div>
+                            <div className={classes.navButtonRight}>
+                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>  
+                                    Next
+                                </Button>
+                            </div>
+                        </div>
+                        
+                        
                     </ValidatorForm>
                 </div>
             </TabPanel>
           </div>
+        </div>
+        
         )
     }
 }
 
 const styles = theme => ({
-    mainContainer: {
-        padding: '20px',
+    mainContainerTop: {
+        padding: '50px 80px 0 80px',
         [theme.breakpoints.down('sm')]: { 
-            padding: '0',
+            padding: '20px 20px 0 20px',
+          },
+        color: theme.palette.text.secondary,
+    },
+    mainContainerBottom: {
+        padding: '0 80px 50px 80px',
+        [theme.breakpoints.down('sm')]: { 
+            padding: '0 20px 20px 20px',
           },
         color: theme.palette.text.secondary,
     },
@@ -438,7 +474,36 @@ const styles = theme => ({
         objectFit: 'contain',
         borderRadius: '20px',
         boxShadow: '0 10px 10px 0 rgba(0, 0, 0, 0.1), 0 20px 20px 0 rgba(0, 0, 0, 0.1)',
+        [theme.breakpoints.down('sm')]: { 
+            float: 'none',
+          }, 
       //  backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, #102b4e, #102b4e)',
+    },
+    navButton: {
+        height: '30px',
+        [theme.breakpoints.down('sm')]: { 
+            height: '80px'
+          },
+    },
+    navButtonRight: {
+        width: '50%',
+        float: 'right',
+        [theme.breakpoints.down('sm')]: { 
+            float: 'none',
+            width: '100%',
+            textAlign: 'center',
+            marginBottom: '20px',
+          }, 
+    },
+    navButtonLeft: {
+        width: '50%',
+        float: 'left',
+        [theme.breakpoints.down('sm')]: { 
+            float: 'none',
+            width: '100%',
+            textAlign: 'center',
+            marginBottom: '20px',
+          }, 
     },
     backArrow: {
         transform: 'rotateY(180deg)',
@@ -453,12 +518,42 @@ const styles = theme => ({
           [theme.breakpoints.down('sm')]: { 
             fontSize: '30px',
             lineHeight: '1.2',
-          },
+          }, 
           fontWeight: '200',
           letterSpacing: '2px',
-          
+          fontFamily: 'FordAntennaCond',
+           fontStretch: 'normal',
           color: '#4d4d4d',
-      }
+           
+      },
+      
+      subHeading: {
+          width: '578px',
+          height: '27px',
+          fontFamily: 'FordAntenna',
+          fontSize: '14px',
+          fontWeight: 'normal',
+          fontStretch: 'normal',
+          fontStyle: 'normal',
+          lineHeight: '1.93',
+          letterSpacing: '1px',
+          textAlign: 'center',
+          color: '#4d4d4d',
+          },
+
+        vehicalLink: {
+        color: '#102b4e',
+        fontSize: '14px',
+        textDecoration: 'underline',
+        textAlign:'center',
+        fontFamily:"FordAntenna",
+        lineHeight:'42px',
+        letterSpacing:'1px',
+        paddingBottom: '15px',
+        marginBottom:'30px',
+        borderBottom: '1px solid #ddd'
+      },
+     
     
 })
 

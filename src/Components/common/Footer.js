@@ -37,15 +37,14 @@ class Footer extends React.Component {
 
                     <Typography className={classes.heading}>
                         <Link onClick={this.toggalContent}  variant="body2">
-                            Disclaimer 
+                            DISCLOSURES 
                             <ArrowDropDownIcon className={classes.dropArrow} />
                         </Link>
                     </Typography>
                     {
                         this.state.showContent && 
                         <Typography className={classes.heading}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
+                            Information is provided on an "as is" basis and could include technical, typographical or other errors. Ford makes no warranties, representations, or guarantees of any kind, express or implied, including but not limited to, accuracy, currency, or completeness, the operation of the Site, the information, materials, content, availability, and products. Ford reserves the right to change product specifications, pricing and equipment at any time without incurring obligations. Your Ford dealer is the best source of the most up-to-date information on Ford vehicles.
                         </Typography>
                         
                     }
@@ -56,21 +55,26 @@ class Footer extends React.Component {
                             <ul className={classes.footerList}>
                                 <li>&copy; 2019 Ford Motor Company</li>
                                 <li>
-                                    <Link href="http://google.com" target="_blank"  variant="body2">
+                                    <Link href="http://www.ford.com/help/terms/" target="_blank"  variant="body2">
                                         Terms & conditions
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="http://google.com" target="_blank"  variant="body2">
+                                    <Link href="https://www.ford.com/help/privacy/#privacy" target="_blank"  variant="body2">
                                         Privacy Policy
                                     </Link>
                                 </li>
                             </ul>
                         </Grid>
-                        <Grid item xs={12} sm={3} className={classes.footerLogo}>
-                            Logo
-                        </Grid>
-                    </Grid>
+                       <Grid item xs={12} sm={3} className={classes.footerLogo}  >
+                        
+                            <Link href="http://www.ford.com/" target="_blank"  variant="body2"> 
+                                <img src="https://www.quickquote.ford.com/cc/static/spc/img/ford-logo.png"  title="ford"  alt="ford"/>
+                            </Link>
+                         
+                        </Grid>  
+                    </Grid> 
+                        
                 </div>
             </div>
             
@@ -117,8 +121,10 @@ const styles = theme => ({
       footerLogo: {
         textAlign: 'right',
         [theme.breakpoints.down('sm')]: { 
-            margin: '0 10px',
-            textAlign: 'center',
+            margin: '0',
+             width: '91.2px',
+              height: '32.6px',
+              textAlign: 'left'
           },
       },
       footerList: {
@@ -132,7 +138,7 @@ const styles = theme => ({
               [theme.breakpoints.down('sm')]: { 
                 display: 'block',
                 margin: '0 auto',
-                textAlign: 'center',
+                textAlign: 'left',
                 marginRight: '0',
                 marginBottom: '6px'
               },

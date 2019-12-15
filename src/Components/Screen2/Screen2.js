@@ -45,14 +45,14 @@ class Screen2 extends React.Component {
                                 Select
                             </Button>
                             <Typography variant="body1" className={classes.vehicalLink}>
-                                Vehicle info is correct
+                                Vehicle info is Incorrect
                             </Typography>
                         </CardContent>
                     </CardActionArea>
                 </Card>
                 <div className={classes.cardBottom}>
                     <Typography variant="caption" className={classes.cardBottomText}>
-                        Is this your vehicle?Is this your vehicle?Is this your vehicle?Is this your vehicle?
+                       This image is not an exact representation of your vehicle, but only an example. 
                     </Typography>
                     <Button className={classes.button} onClick={() => handleBackScreenChange('screen1')} >
                         <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
@@ -66,9 +66,17 @@ class Screen2 extends React.Component {
 }
 
 const styles = theme => ({
+    mainContainer: {
+        padding: '50px 80px ',
+        [theme.breakpoints.down('sm')]: { 
+            padding: '20px'
+          },
+    
+      },
     card: {
         maxWidth: 320,
-        margin: '20px auto'
+        margin: '20px auto',
+        
       },
       media: {
         height: 140,
@@ -81,6 +89,11 @@ const styles = theme => ({
           fontSize: '10px',
           display: 'block',
           marginBottom: '15px',
+          fontFamily: 'FordAntenna',
+          lineHeight: '2',
+          letterSpacing: '0.5px',
+          textAlign: 'center',
+          color: '#4d4d4d',
       },
 
       vehicalTitle: {
@@ -89,6 +102,7 @@ const styles = theme => ({
           lineHeight: '30px',
           fontWeight: 'bold',
           textTransform: 'uppercase'
+
       },
       vehicalText: {
           fontSize: '12px',
@@ -126,7 +140,7 @@ const styles = theme => ({
           },
           fontWeight: '200',
           letterSpacing: '2px',
-          
+          fontFamily:"FordAntennaCond",
           color: '#4d4d4d',
       },
       next: {
