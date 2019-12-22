@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Screen1 from './Screen1/Screen1'
 import Screen2 from './Screen2/Screen2'
 import axios from 'axios'
+import ScreenNoData from './Screen2/ScreenNoData'
 
 
 class MainScreen extends React.Component {
@@ -10,10 +11,10 @@ class MainScreen extends React.Component {
         tabDefaultValue: 'vin',
         formFields: {
             vin: '',
-            licencePlate: '',
-            state: '',
+            licencePlate: 'dsdsds',
+            state: 'dssdsd',
         },
-        presentScreen: 'screen1',
+        presentScreen: 'screenNoData',
         vehicalDetails: {
             make: "Ford",
             Model: "Mustang",
@@ -38,7 +39,7 @@ class MainScreen extends React.Component {
        const { licencePlate, state, vin} = this.state.formFields
 
         if(type === 'vin') {
-            axios.post(`http://localhost:8084/api/v2/chromedata`, {
+            axios.post(`http://localhost:8182/api/v2/chromedata`, {
                 "vin": vin
                 }, {
                 headers: {
@@ -52,18 +53,26 @@ class MainScreen extends React.Component {
                 vehicalDetails.Model= res.data.vinDescription.modelName
                 vehicalDetails.year= res.data.vinDescription.modelYear
                 vehicalDetails.vin= res.data.vinDescription.vin
-
-                this.setState({
-                    vehicalDetails,
-                    presentScreen: 'screen2'
-
-                })
+                if (vehicalDetails.year <= 2005) {
+                    this.setState({
+                        vehicalDetails,
+                        presentScreen: 'screenNoData'
+    
+                    })
+                } else {
+                    this.setState({
+                        vehicalDetails,
+                        presentScreen: 'screen2'
+    
+                    })
+                }
+               
             })
             .catch(error => {
                 console.log(error)
             })
         } else {
-            axios.post(`http://localhost:8091/api/v2/quickvin`, {
+            axios.post(`http://localhost:8181/api/v2/quickvin`, {
                 "license-plate": licencePlate,
                 "state": state
                 }, {
@@ -79,11 +88,19 @@ class MainScreen extends React.Component {
                 vehicalDetails.year= res.data.quickvin['vin-info'].decode.year
                 vehicalDetails.vin= res.data.quickvin['vin-info'].vin
 
-                this.setState({
-                    vehicalDetails,
-                    presentScreen: 'screen2'
-
-                })
+                if (vehicalDetails.year <= 2005) {
+                    this.setState({
+                        vehicalDetails,
+                        presentScreen: 'screenNoData'
+    
+                    })
+                } else {
+                    this.setState({
+                        vehicalDetails,
+                        presentScreen: 'screen2'
+    
+                    })
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -122,6 +139,16 @@ class MainScreen extends React.Component {
                     handleScreenChange={this.handleScreenChange}
                     vehicalDetails= {vehicalDetails}
                     handleBackScreenChange={this.handleBackScreenChange}
+                    formFields={formFields}
+                />
+            }
+            {
+                presentScreen === 'screenNoData' && 
+                <ScreenNoData
+                    handleScreenChange={this.handleScreenChange}
+                    vehicalDetails= {vehicalDetails}
+                    handleBackScreenChange={this.handleBackScreenChange}
+                    formFields={formFields}
                 />
             }
             
@@ -133,7 +160,7 @@ class MainScreen extends React.Component {
 const styles = theme => ({
     mainContainer: {
         background: '#f1f1f1',
-        //padding: '50px 80px ',
+        padding: '10px 80px 10px 80px ',
         minHeight: '300px',
         // [theme.breakpoints.down('sm')]: { 
         //     padding: '20px'

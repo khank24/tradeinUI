@@ -9,69 +9,34 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import Link from '@material-ui/core/Link';
 
 
-class Screen2 extends React.Component {
+class ScreenNoData extends React.Component {
 
     render() {
         const {classes, handleBackScreenChange, vehicalDetails, formFields} = this.props
         return (
             <div className={classes.mainContainer}>
                 <Typography variant="h4">
-                    HERE'S WHAT WE FOUND
+                    WE"RE SORRY!
                 </Typography>
                 <Typography variant="caption">
-                    Is this your vehicle?
+                    We can not appraise your vehicle online at this time. But don’t worry – you can send your vehicle information to the dealership for an in-person evaluation.
                 </Typography>
-                <Card className={classes.card}>
-                    <CardActionArea>
-                        <CardMedia
-                            className={classes.media}
-                            image="https://www.ford.com/cmslibs/content/dam/vdm_ford/live/en_us/ford/nameplate/edge/2020/collections/3-2/20_frd_edg_ps34_tnm_rprd_356x180.png/_jcr_content/renditions/cq5dam.web.1280.1280.png"
-                            title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                            <Typography variant="subtitle1" className={classes.vehicalTitle}>
-                                {`${vehicalDetails.year} ${vehicalDetails.make}`}
-                            </Typography>
-                            <Typography variant="subtitle1" className={classes.vehicalTitle}>
-                                {vehicalDetails.Model}
-                            </Typography>
-                            <Divider className={classes.divider} />
-                            <Typography variant="body1" className={classes.vehicalText}>
-                                VIN: <span>{vehicalDetails.vin}</span>
-                            </Typography>
-                            {
-                                formFields.state &&
-                                <Typography variant="body1" className={classes.vehicalText}>
-                                    State: <span>{formFields.state}</span>
-                                </Typography>
-                            }
-                            {
-                                formFields.licencePlate &&
-                                <Typography variant="body1" className={classes.vehicalText}>
-                                    Licence Plate: <span>{formFields.licencePlate}</span>
-                                </Typography>
-                            }
+                <div className={classes.navButton}>
                             
-                            <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
-                                Select
-                            </Button>
-                            <Typography variant="body1" className={classes.vehicalLink}>
-                                Vehicle info is Incorrect
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-                <div className={classes.cardBottom}>
-                    <Typography variant="caption" className={classes.cardBottomText}>
-                       This image is not an exact representation of your vehicle, but only an example. 
-                    </Typography>
-                    <Button className={classes.button} onClick={() => handleBackScreenChange('screen1')} >
-                        <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
-                    </Button>
+                    <div className={classes.navButtonRight}>
+                        <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
+                            Send To Dealer
+                        </Button>
+                    </div>
+                    <div className={classes.navButtonRight}>
+                        <Link onClick={() => handleBackScreenChange('screen1')}  variant="body2">
+                            Appraise Difrent Vehicle <PlayCircleFilledWhiteIcon className={classes.linkArrow} />
+                        </Link>
+                    </div>
                 </div>
-                
             </div>
             
         )
@@ -81,6 +46,8 @@ class Screen2 extends React.Component {
 const styles = theme => ({
     mainContainer: {
         padding: '50px 80px ',
+        maxWidth: '500px',
+        margin: '0 auto',
         [theme.breakpoints.down('sm')]: { 
             padding: '20px'
           },
@@ -157,7 +124,7 @@ const styles = theme => ({
           color: '#4d4d4d',
       },
       next: {
-        width: '133px',
+        width: '180px',
         height: '40px',
         margin: '15px 0 20px',
         objectFit: 'contain',
@@ -165,7 +132,17 @@ const styles = theme => ({
         boxShadow: '0 10px 10px 0 rgba(0, 0, 0, 0.1), 0 20px 20px 0 rgba(0, 0, 0, 0.1)',
       //  backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, #102b4e, #102b4e)',
     },
+    navButton: {
+        margin: '20px 0'
+    },
+    linkArrow: {
+        width: '16px',
+        height: '16px',
+        marginLeft: '5px',
+        position: 'relative',
+        top: '3px'
+      },
 })
 
-export default withStyles(styles)(Screen2)
+export default withStyles(styles)(ScreenNoData)
   

@@ -24,12 +24,12 @@ class Footer extends React.Component {
                 <div className={classes.footerTop}>
                     <Grid container >
                         <Grid item xs={12} sm={6}>
-                            <Link href="http://google.com" target="_blank"  variant="body2">
+                            <Link href="https://www.ford.com/help/privacy/#privacy" target="_blank"  variant="body2">
                                 Ford Privacy Policy <PlayCircleFilledWhiteIcon className={classes.linkArrow} />
                             </Link>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Link href="http://google.com" target="_blank"  variant="body2">
+                            <Link href="http://www.ford.com/help/terms/" target="_blank"  variant="body2">
                                 Trade-In Terms & conditions <PlayCircleFilledWhiteIcon className={classes.linkArrow} />
                             </Link>
                         </Grid>
@@ -44,8 +44,10 @@ class Footer extends React.Component {
                     {
                         this.state.showContent && 
                         <Typography className={classes.heading}>
-                            Information is provided on an "as is" basis and could include technical, typographical or other errors. Ford makes no warranties, representations, or guarantees of any kind, express or implied, including but not limited to, accuracy, currency, or completeness, the operation of the Site, the information, materials, content, availability, and products. Ford reserves the right to change product specifications, pricing and equipment at any time without incurring obligations. Your Ford dealer is the best source of the most up-to-date information on Ford vehicles.
-                        </Typography>
+
+                        <h6>The Program is tailored specifically so that consumers are provided with the highest possible trade-in appraisal (Trade-In Appraisal) for their vehicle.  If your vehicle qualifies, you can apply your trade-in appraisal toward the purchase or lease of a new Ford or Lincoln vehicle or Certified pre-owned Ford or Lincoln Vehicle subject to the Terms. Trade-In Appraisal is available for any qualified 2006 and later-model-year vehicle.</h6>
+                     
+                       </Typography>
                         
                     }
                 </div>
@@ -66,10 +68,12 @@ class Footer extends React.Component {
                                 </li>
                             </ul>
                         </Grid>
+
                        <Grid item xs={12} sm={3} className={classes.footerLogo}  >
                         
                             <Link href="http://www.ford.com/" target="_blank"  variant="body2"> 
-                                <img src="https://www.quickquote.ford.com/cc/static/spc/img/ford-logo.png"  title="ford"  alt="ford"/>
+                                <img src="https://www.quickquote.ford.com/cc/static/spc/img/ford-logo.png"  title="ford"  alt="Ford Go Further"/>
+                               {/* http://automotivecdn.com/brand-logos/png/Ford_logo_horizontal-xs.png */}
                             </Link>
                          
                         </Grid>  
@@ -124,7 +128,8 @@ const styles = theme => ({
             margin: '0',
              width: '91.2px',
               height: '32.6px',
-              textAlign: 'left'
+              textAlign: 'left',
+           //   padding: '19px 32px',
           },
       },
       footerList: {

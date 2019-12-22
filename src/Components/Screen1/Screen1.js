@@ -301,7 +301,7 @@ onSubmitVin = (event) => {
         <div>
             <div className={classes.mainContainerTop}>
             <Typography variant="h4" className={classes.mainHeading}>
-                What Vehicle Will You Trade In?
+            What Vehicle Will You Trade In?
             </Typography>
             <Typography variant="caption" className={classes.subHeading}>
                 Provide your VIN (Vehicle Identification Number) or license plate number.
@@ -326,7 +326,11 @@ onSubmitVin = (event) => {
             <div className={classes.mainContainerBottom}>
             <TabPanel value={tabDefaultValue} index="vin">
                 <div className={classes.vin}>
-                    Vehicle Identification Number [VIN]:
+                    VIN
+                    <Tooltip title="Vehicle Identification Number can find on the Car or Title" enterDelay={500} leaveDelay={200}>
+                        <InfoIcon className={classes.info} />
+                    </Tooltip>
+
 
                     <ValidatorForm
                         ref="form"
@@ -339,25 +343,27 @@ onSubmitVin = (event) => {
                             name="vin"
                             value={vin}
                             validators={['required']}
-                            errorMessages={['this field is required']}
+                            errorMessages={['VIN is required']}
                         />
-                        <Tooltip title="VIN details">
+                        <Tooltip title="Vehicle Identification Number can find on the Car or Title">
                             <Typography variant="body1" className={classes.vehicalLink}>
                                 What is VIN?
                             </Typography>
                         </Tooltip>
                         <div className={classes.navButton}>
+
+                            <div className={classes.navButtonRight}>
+                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
+                                    Next
+                                </Button>
+                            </div>
                             
                             <div className={classes.navButtonLeft}>
                                 <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
                                     <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
                                 </Button>
                             </div>
-                            <div className={classes.navButtonRight}>
-                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
-                                    Next
-                                </Button>
-                            </div>
+                          
                         </div>
                         
                         
@@ -378,7 +384,7 @@ onSubmitVin = (event) => {
             </TabPanel>
             <TabPanel value={tabDefaultValue} index="license">
             <div className={classes.vin}>
-                    Licence Plate:
+                    Licence Plate
                     <ValidatorForm
                         ref="form"
                         onSubmit={this.onSubmitLicence}
@@ -390,9 +396,9 @@ onSubmitVin = (event) => {
                             name="licencePlate"
                             value={licencePlate}
                             validators={['required']}
-                            errorMessages={['this field is required']}
+                            errorMessages={['License plate is required.']}
                         />
-                        State:
+                        State
                         <SelectValidator
                             value={state}
                             onChange={handleFormChange}
@@ -400,7 +406,7 @@ onSubmitVin = (event) => {
                             name='state'
                             className={classes.inputField}
                             validators={['required']}
-                            errorMessages={['this field is required']}
+                            errorMessages={['State is required.']}
                             >
                             <MenuItem value="">
                                 <em>None</em>
@@ -411,18 +417,20 @@ onSubmitVin = (event) => {
                                 })
                             }
                         </SelectValidator>
-                        <div className={classes.navButton}>
+                        <div className={`${classes.navButton} ${classes.navButtonLicence}`}>
                             
+                             <div className={classes.navButtonRight}>
+                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>  
+                                    Next
+                                </Button>
+                            </div>
+
                             <div className={classes.navButtonLeft}>
                                 <Button className={classes.button} onClick={() => handleBackScreenChange('screen0')} >
                                     <PlayCircleFilledWhiteIcon className={classes.backArrow} /> Back
                                 </Button>
                             </div>
-                            <div className={classes.navButtonRight}>
-                                <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`}>  
-                                    Next
-                                </Button>
-                            </div>
+                           
                         </div>
                         
                         
@@ -445,7 +453,7 @@ const styles = theme => ({
         color: theme.palette.text.secondary,
     },
     mainContainerBottom: {
-        padding: '0 80px 50px 80px',
+        padding: '0 80px 100px 80px',
         [theme.breakpoints.down('sm')]: { 
             padding: '0 20px 20px 20px',
           },
@@ -460,8 +468,10 @@ const styles = theme => ({
         margin: '0 auto'
     },
     info: {
-        float: 'right',
-        fontSize: '17px'
+        fontSize: '17px',
+        position: 'relative',
+        top: '2px',
+        left: '4px'
     },
     inputField: {
         width: '100%',
@@ -483,6 +493,11 @@ const styles = theme => ({
         height: '30px',
         [theme.breakpoints.down('sm')]: { 
             height: '80px'
+          },
+    },
+    navButtonLicence: {
+        [theme.breakpoints.down('sm')]: { 
+            marginTop: '25px'
           },
     },
     navButtonRight: {
@@ -509,7 +524,8 @@ const styles = theme => ({
         transform: 'rotateY(180deg)',
         width: '16px',
         height: '16px',
-        marginRight: '5px'
+        marginRight: '5px',
+        color: '#102b4e',
       },
       mainHeading: {
         //fontFamily
@@ -551,10 +567,9 @@ const styles = theme => ({
         letterSpacing:'1px',
         paddingBottom: '15px',
         marginBottom:'30px',
-        borderBottom: '1px solid #ddd'
+        borderBottom: '1px solid #ddd',
+        backgroundColor: '#eeeeee',
       },
-     
-    
 })
 
 export default withStyles(styles)(Screen1)
