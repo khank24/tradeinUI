@@ -54,7 +54,7 @@ class Screen2 extends React.Component {
                                 </Typography>
                             }
                             
-                            <Button variant="contained" type="submit" color="primary" className={`${classes.button} ${classes.next}`} >
+                            <Button variant="contained" type="submit" color="primary" onClick={() => handleBackScreenChange('screen3')} className={`${classes.button} ${classes.next}`} >
                                 Select
                             </Button>
                             <Typography variant="body1" className={classes.vehicalLink}>

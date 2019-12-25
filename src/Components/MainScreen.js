@@ -2,19 +2,21 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Screen1 from './Screen1/Screen1'
 import Screen2 from './Screen2/Screen2'
+import Screen3 from './Screen3/Screen3'
 import axios from 'axios'
 import ScreenNoData from './Screen2/ScreenNoData'
-
+const steps = ['BASICS', 'FEATURES', 'CONDITION', 'SUMMARY']
 
 class MainScreen extends React.Component {
     state = {
+        activeStep: 2,
         tabDefaultValue: 'vin',
         formFields: {
             vin: '',
             licencePlate: 'dsdsds',
             state: 'dssdsd',
         },
-        presentScreen: 'screenNoData',
+        presentScreen: 'screen3',
         vehicalDetails: {
             make: "Ford",
             Model: "Mustang",
@@ -23,6 +25,23 @@ class MainScreen extends React.Component {
         }
     }
 
+    handleBackStep = () => {
+        let activeStep = this.state.activeStep
+        activeStep--
+        if (activeStep <= 0) {
+            activeStep = 0
+        }
+        this.setState({activeStep})
+    }
+
+    handleNextStep = () => {
+        let activeStep = this.state.activeStep
+        activeStep++
+        if (activeStep >= 3) {
+            activeStep = 3
+        }
+        this.setState({activeStep})
+    }
 
     handleChange = (event, value) => {
         this.setState({tabDefaultValue:value})
@@ -117,7 +136,7 @@ class MainScreen extends React.Component {
 
     render() {
         const {classes} = this.props
-        const {tabDefaultValue, formFields, presentScreen, vehicalDetails} = this.state
+        const {tabDefaultValue, formFields, presentScreen, vehicalDetails, activeStep} = this.state
         return (
         <div className={classes.mainContainer}>
             {
@@ -149,6 +168,15 @@ class MainScreen extends React.Component {
                     vehicalDetails= {vehicalDetails}
                     handleBackScreenChange={this.handleBackScreenChange}
                     formFields={formFields}
+                />
+            }
+            {
+                presentScreen === 'screen3' && 
+                <Screen3
+                    steps={steps}
+                    activeStep={activeStep}
+                    handleBackStep={this.handleBackStep}
+                    handleNextStep={this.handleNextStep}
                 />
             }
             
