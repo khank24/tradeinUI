@@ -9,7 +9,7 @@ const steps = ['BASICS', 'FEATURES', 'CONDITION', 'SUMMARY']
 
 class MainScreen extends React.Component {
     state = {
-        activeStep: 2,
+        activeStep: 1,
         tabDefaultValue: 'vin',
         formFields: {
             vin: '',
@@ -22,6 +22,23 @@ class MainScreen extends React.Component {
             Model: "Mustang",
             year: '2019',
             vin: '3GNFK16T83G209781',
+        },
+        stepFields: {
+            trim: '',
+            mileage: '',
+            keys: 'yes',
+            color: '',
+            stdFeatures: {
+                gilad: true,
+                jason: false,
+                antoine: false,
+            },
+            premiumFeatures: {
+                gilad: true,
+                jason: false,
+                antoine: false,
+            },
+
         }
     }
 
@@ -52,6 +69,20 @@ class MainScreen extends React.Component {
         const formFields = this.state.formFields;
         formFields[name] = event.target.value;
         this.setState({ formFields });
+    }
+
+    handleFormChangeSteps = (event) => {
+        const name = event.target.name;
+        const stepFields = this.state.stepFields;
+        stepFields[name] = event.target.value;
+        this.setState({ stepFields });
+    }
+
+    handleStepChange = (event) => {
+        const name = event.target.name;
+        const stepFields = this.state.stepFields;
+        stepFields[name] = event.target.value;
+        this.setState({ stepFields });
     }
 
     handleScreenChange = (screen, type) => {
@@ -134,12 +165,19 @@ class MainScreen extends React.Component {
         })
     }
 
+    handleCheckboxChange = (name, feat) => event => {
+        const stepFields = this.state.stepFields;
+        stepFields[feat][name] = !stepFields[feat][name];
+        this.setState({ stepFields });
+      };
+
     render() {
         const {classes} = this.props
-        const {tabDefaultValue, formFields, presentScreen, vehicalDetails, activeStep} = this.state
+        const {tabDefaultValue, formFields, presentScreen, vehicalDetails, activeStep, stepFields} = this.state
         return (
         <div className={classes.mainContainer}>
-            {
+            {process.env.REACT_APP_API_URL}
+            { 
                 presentScreen === 'screen1' && 
                 <Screen1 
                     tabDefaultValue={tabDefaultValue} 
@@ -177,6 +215,11 @@ class MainScreen extends React.Component {
                     activeStep={activeStep}
                     handleBackStep={this.handleBackStep}
                     handleNextStep={this.handleNextStep}
+                    handleStepChange={this.handleStepChange}
+                    stepFields={stepFields}
+                    handleFormChangeSteps = {this.handleFormChangeSteps}
+                    handleBackScreenChange={this.handleBackScreenChange}
+                    handleCheckboxChange={this.handleCheckboxChange}
                 />
             }
             

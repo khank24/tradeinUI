@@ -26,11 +26,11 @@ class Screen3 extends React.Component {
                 </Stepper>
                 {
                     activeStep === 0 &&
-                    <Step0 />
+                    <Step0 {...this.props} />
                 }
                 {
                     activeStep === 1 &&
-                    <Step1 />
+                    <Step1 {...this.props} />
                 }
                 {
                     activeStep === 2 &&
@@ -40,7 +40,7 @@ class Screen3 extends React.Component {
                     activeStep === 3 &&
                     <Step3 />
                 }
-                <div className={`${classes.navButton} ${classes.navButtonLicence}`}>
+                {/* <div className={`${classes.navButton} ${classes.navButtonLicence}`}>
                             
                     <div className={classes.navButtonRight}>
                         <Button variant="contained" type="submit" onClick={handleNextStep} color="primary" className={`${classes.button} ${classes.next}`}>  
@@ -54,7 +54,7 @@ class Screen3 extends React.Component {
                         </Button>
                     </div>
                     
-                </div>
+                </div> */}
             </div>
         </div>
         )
@@ -105,7 +105,7 @@ const styles = theme => ({
       //  backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, #102b4e, #102b4e)',
     },
     navButton: {
-        maxWidth: '500px',
+        maxWidth: '250px',
         margin: '50px auto',
         height: '30px',
         [theme.breakpoints.down('sm')]: { 
@@ -118,7 +118,7 @@ const styles = theme => ({
           },
     },
     navButtonRight: {
-        width: '50%',
+        maxWidth: '50%',
         float: 'right',
         [theme.breakpoints.down('sm')]: { 
             float: 'none',
@@ -128,7 +128,7 @@ const styles = theme => ({
           }, 
     },
     navButtonLeft: {
-        width: '50%',
+        maxWidth: '50%',
         float: 'left',
         [theme.breakpoints.down('sm')]: { 
             float: 'none',

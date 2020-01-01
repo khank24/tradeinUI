@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 class Step3 extends React.Component {
 
     render() {
-        const {classes, activeStep, steps} = this.props
+        const {classes, handleNextStep, handleBackStep} = this.props
         return (
         <div>
             <div className={classes.mainContainerTop}>
