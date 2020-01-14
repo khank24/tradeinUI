@@ -284,17 +284,30 @@ function TabPanel(props) {
   }
 
 class Screen1 extends React.Component {
+    state = {
+        errormsg: ''
+    }
 
 onSubmitLicence = (event) => {
+    
 	event.preventDefault();
 	this.props.handleScreenChange('screen2', 'licence')
 
 }
 onSubmitVin = (event) => {
-	event.preventDefault();
-	this.props.handleScreenChange('screen2', 'vin')
+    
+    event.preventDefault();
+    if(this.props.vin.length <= 16)
+    {
+        this.setState({errormsg: 'The vin is invalid'})
+    }
+    else {
+        this.props.handleScreenChange('screen2', 'vin') 
+    }
+	//this.props.handleScreenChange('screen2', 'vin')
 
 }
+
     render() {
         const {classes, tabDefaultValue, vin, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
         return (
@@ -345,6 +358,10 @@ onSubmitVin = (event) => {
                             validators={['required']}
                             errorMessages={['VIN is required']}
                         />
+                        {
+                            this.state.errormsg != '' &&
+                            <p className={classes.error}>{this.state.errormsg}</p>
+                        }
                         <Tooltip title="Vehicle Identification Number can find on the Car or Title">
                             <Typography variant="body1" className={classes.vehicalLink}>
                                 What is VIN?
@@ -466,6 +483,11 @@ const styles = theme => ({
           },
         textAlign: 'left',
         margin: '0 auto'
+    },
+    error: {
+        margin: '0',
+        color: 'red',
+        fontStyle: 'italic',
     },
     info: {
         fontSize: '17px',
