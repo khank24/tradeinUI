@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import Screen0 from './Screen0/Screen0'
 import Screen1 from './Screen1/Screen1'
 import Screen2 from './Screen2/Screen2'
 import Screen3 from './Screen3/Screen3'
@@ -9,14 +10,14 @@ const steps = ['BASICS', 'FEATURES', 'CONDITION', 'SUMMARY']
 
 class MainScreen extends React.Component {
     state = {
-        activeStep: 1,
+        activeStep: 0,
         tabDefaultValue: 'vin',
         formFields: {
-            vin: '',
+            vin: 'Raj',
             licencePlate: 'dsdsds',
             state: 'dssdsd',
         },
-        presentScreen: 'screen3',
+        presentScreen: 'screen0',
         vehicalDetails: {
             make: "Ford",
             Model: "Mustang",
@@ -29,7 +30,7 @@ class MainScreen extends React.Component {
             keys: 'yes',
             color: '',
             stdFeatures: {
-                gilad: true,
+                Gilad_Gray: true,
                 jason: false,
                 antoine: false,
             },
@@ -159,6 +160,7 @@ class MainScreen extends React.Component {
     }
 
     handleBackScreenChange = (screen) => {
+        console.log(screen)
         this.setState({
             presentScreen: screen
 
@@ -172,11 +174,18 @@ class MainScreen extends React.Component {
       };
 
     render() {
+        console.log(this.state)
         const {classes} = this.props
         const {tabDefaultValue, formFields, presentScreen, vehicalDetails, activeStep, stepFields} = this.state
         return (
         <div className={classes.mainContainer}>
-            {process.env.REACT_APP_API_URL}
+            { 
+                presentScreen === 'screen0' && 
+                <Screen0
+                    handleScreenChange={this.handleScreenChange}
+                    handleBackScreenChange={this.handleBackScreenChange}
+                />
+            }
             { 
                 presentScreen === 'screen1' && 
                 <Screen1 
