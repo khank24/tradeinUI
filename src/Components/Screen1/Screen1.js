@@ -13,6 +13,7 @@ import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
 import { ValidatorForm, TextValidator, SelectValidator} from 'react-material-ui-form-validator'
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
+import WarningTwoToneIcon from '@material-ui/icons/WarningTwoTone';
 
 const USAstates = [
     {
@@ -284,9 +285,6 @@ function TabPanel(props) {
   }
 
 class Screen1 extends React.Component {
-    state = {
-        errormsg: ''
-    }
 
 onSubmitLicence = (event) => {
     
@@ -297,19 +295,12 @@ onSubmitLicence = (event) => {
 onSubmitVin = (event) => {
     
     event.preventDefault();
-    if(this.props.vin.length <= 16)
-    {
-        this.setState({errormsg: 'The vin is invalid'})
-    }
-    else {
-        this.props.handleScreenChange('screen2', 'vin') 
-    }
 	//this.props.handleScreenChange('screen2', 'vin')
 
 }
 
     render() {
-        const {classes, tabDefaultValue, vin, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
+        const {classes, tabDefaultValue, vin, errormsg, handleChange, handleFormChange, licencePlate, state, handleBackScreenChange} = this.props
         return (
         <div>
             <div className={classes.mainContainerTop}>
@@ -340,9 +331,13 @@ onSubmitVin = (event) => {
             <TabPanel value={tabDefaultValue} index="vin">
                 <div className={classes.vin}>
                     VIN
-                    <Tooltip title="Vehicle Identification Number can find on the Car or Title" enterDelay={500} leaveDelay={200}>
+                    {
+                        errormsg != '' &&
+                        <WarningTwoToneIcon className={classes.erorrIcon} />
+                    }
+                    {/* <Tooltip title="Vehicle Identification Number can find on the Car or Title" enterDelay={500} leaveDelay={200}>
                         <InfoIcon className={classes.info} />
-                    </Tooltip>
+                    </Tooltip> */}
 
 
                     <ValidatorForm
@@ -355,12 +350,10 @@ onSubmitVin = (event) => {
                             onChange={handleFormChange}
                             name="vin"
                             value={vin}
-                            validators={['required']}
-                            errorMessages={['VIN is required']}
                         />
                         {
-                            this.state.errormsg != '' &&
-                            <p className={classes.error}>{this.state.errormsg}</p>
+                            errormsg != '' &&
+                            <p className={classes.error}>{errormsg}</p>
                         }
                         <Tooltip title="Vehicle Identification Number can find on the Car or Title">
                             <Typography variant="body1" className={classes.vehicalLink}>
@@ -488,6 +481,13 @@ const styles = theme => ({
         margin: '0',
         color: 'red',
         fontStyle: 'italic',
+    },
+    erorrIcon: {
+        color: 'red',
+        fontSize: '18px',
+        position: 'relative',
+        top: '3px',
+        left: '4px',
     },
     info: {
         fontSize: '17px',

@@ -12,6 +12,7 @@ class MainScreen extends React.Component {
     state = {
         activeStep: 0,
         tabDefaultValue: 'vin',
+        errormsg: '',
         formFields: {
             vin: 'Raj',
             licencePlate: 'dsdsds',
@@ -69,7 +70,17 @@ class MainScreen extends React.Component {
         const name = event.target.name;
         const formFields = this.state.formFields;
         formFields[name] = event.target.value;
-        this.setState({ formFields });
+        let errormsg = '';
+        if (name === 'vin') {
+            if (event.target.value === '') {
+                errormsg = 'VIN is required'
+            } else if (event.target.value.length != 16) {
+                errormsg = 'The vin length is invalid'
+            } else {
+                errormsg = ''
+            }
+        }
+        this.setState({ formFields, errormsg });
     }
 
     handleFormChangeSteps = (event) => {
@@ -90,38 +101,46 @@ class MainScreen extends React.Component {
        const { licencePlate, state, vin} = this.state.formFields
 
         if(type === 'vin') {
-            axios.post(`http://localhost:8182/api/v2/chromedata`, {
-                "vin": vin
-                }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => {
-                console.log(res.data)
-                const { vehicalDetails } = this.state
-                vehicalDetails.make= res.data.vinDescription.division
-                vehicalDetails.Model= res.data.vinDescription.modelName
-                vehicalDetails.year= res.data.vinDescription.modelYear
-                vehicalDetails.vin= res.data.vinDescription.vin
-                if (vehicalDetails.year <= 2005) {
-                    this.setState({
-                        vehicalDetails,
-                        presentScreen: 'screenNoData'
-    
-                    })
-                } else {
-                    this.setState({
-                        vehicalDetails,
-                        presentScreen: 'screen2'
-    
-                    })
-                }
-               
-            })
-            .catch(error => {
-                console.log(error)
-            })
+            if (vin === '') {
+                this.setState({ errormsg: 'VIN is required' });
+            } else if (vin.length != 16) {
+                this.setState({ errormsg: 'The vin length is invalid' });
+            } else {
+                
+
+                axios.post(`http://localhost:8182/api/v2/chromedata`, {
+                    "vin": vin
+                    }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    const { vehicalDetails } = this.state
+                    vehicalDetails.make= res.data.vinDescription.division
+                    vehicalDetails.Model= res.data.vinDescription.modelName
+                    vehicalDetails.year= res.data.vinDescription.modelYear
+                    vehicalDetails.vin= res.data.vinDescription.vin
+                    if (vehicalDetails.year <= 2005) {
+                        this.setState({
+                            vehicalDetails,
+                            presentScreen: 'screenNoData'
+        
+                        })
+                    } else {
+                        this.setState({
+                            vehicalDetails,
+                            presentScreen: 'screen2'
+        
+                        })
+                    }
+                
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
         } else {
             axios.post(`http://localhost:8181/api/v2/quickvin`, {
                 "license-plate": licencePlate,
@@ -197,6 +216,7 @@ class MainScreen extends React.Component {
                     state={formFields.state}
                     handleScreenChange={this.handleScreenChange}
                     handleBackScreenChange={this.handleBackScreenChange}
+                    errormsg={this.state.errormsg}
                 />
             }
             {
